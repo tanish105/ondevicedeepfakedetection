@@ -1,0 +1,21 @@
+project_root: .
+
+data:
+  raw_ffpp_c23_dir: data/raw/ffpp_c23
+  interim_dir: data/interim
+  processed_dir: data/processed
+  video_index_csv: data/processed/video_index.csv
+  splits_dir: data/processed/splits
+  manifests_dir: data/processed/manifests
+  calibration_dir: data/processed/calibration
+
+artifacts:
+  checkpoints_dir: artifacts/checkpoints
+  exports_dir: artifacts/exports
+  metrics_dir: artifacts/metrics
+  predictions_dir: artifacts/predictions
+  failures_dir: artifacts/failures
+
+android:
+  app_dir: android_app
+  assets_model_dir: android_app/app/src/main/assets/models

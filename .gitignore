@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Local environment files
+.env
+.env.*
+
+# Data and generated artifacts
+data/raw/
+data/interim/
+artifacts/checkpoints/
+artifacts/exports/
+artifacts/metrics/
+artifacts/predictions/
+artifacts/failures/
+
+# Android
+android_app/.gradle/
+android_app/build/
+android_app/app/build/

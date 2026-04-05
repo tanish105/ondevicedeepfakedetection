@@ -1,0 +1,25 @@
+dataset:
+  name: faceforensicspp
+  variant: c23
+  frame_sample_count: 25
+  image_size: 224
+  manipulations:
+    - df
+    - nt
+  negative_class: real
+
+splits:
+  train_count_per_class: 720
+  val_count_per_class: 140
+  test_count_per_class: 140
+
+face_detection:
+  detector: mtcnn
+  keep_all: false
+  select_face: largest
+
+calibration:
+  total_frames: 500
+  class_balance:
+    real: 250
+    fake: 250
