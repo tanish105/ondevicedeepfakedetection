@@ -12,7 +12,7 @@ data:
 
 training:
   precision: fp32
-  device: cuda
+  device: auto
   batch_size: 32
   num_workers: 4
   epochs: 10
@@ -22,3 +22,4 @@ training:
   loss: bce_with_logits
   metric: roc_auc
   export_gate_min_auc: 0.85
+  allow_cpu_fallback: true

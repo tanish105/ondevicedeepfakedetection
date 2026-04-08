@@ -10,6 +10,7 @@ This directory will hold versioned configuration files for:
 Suggested initial files:
 - `paths.example.yaml`
 - `data.yaml`
+- `runtime.yaml`
 - `train_df.yaml`
 - `train_nt.yaml`
 - `export.yaml`

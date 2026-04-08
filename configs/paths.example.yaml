@@ -19,3 +19,9 @@ artifacts:
 android:
   app_dir: android_app
   assets_model_dir: android_app/app/src/main/assets/models
+
+gcp:
+  project_id: ondevicedeepfakedetection
+  zone: us-central1-a
+  vm_workspace_dir: /home/$USER/ondevicedeepfakedetection
+  vm_data_dir: /mnt/disks/workspace/ondevicedeepfakedetection-data

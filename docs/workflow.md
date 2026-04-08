@@ -1,5 +1,25 @@
 # Workflow
 
+## Execution Model
+
+- Local Windows laptop:
+  - code editing
+  - Git
+  - small CPU sanity checks
+  - analysis and reporting
+  - optional small-sample export checks
+- GCP GPU VM:
+  - full frame extraction
+  - MTCNN face cropping at scale
+  - FP32 training
+  - validation and full-set inference
+  - export and quantization runs
+
+Principles:
+- all pipeline code must run on CPU if no GPU is available
+- GPU acceleration is used only when detected or explicitly configured
+- mobile deployment stays target-neutral until Android vs iOS is finalized
+
 ## Phase 1: Shared Setup
 
 1. Confirm FF++ `c23` availability and local storage path.
@@ -14,12 +34,20 @@
 4. Write processed frame manifests.
 5. Generate a `500`-frame INT8 calibration manifest from validation data.
 
+Phase 2 execution note:
+- implement and test on the laptop with a tiny subset first
+- run the full dataset job on the GCP GPU VM
+
 ## Phase 3: FP32 Training
 
 1. Train `mobilenetv2_df_vs_real`.
 2. Train `mobilenetv2_nt_vs_real`.
 3. Validate both and gate export on `AUC > 0.85`.
 4. Record FP32 GPU metrics and prediction files.
+
+Phase 3 execution note:
+- training and full validation are expected to run on the GCP GPU VM
+- CPU runs are only for smoke tests and correctness checks
 
 ## Phase 4: Export and Quantization
 
@@ -48,6 +76,7 @@
 
 ## Immediate Next Steps
 
-1. Add config files for local dataset paths and experiment defaults.
-2. Implement split generation and manifest-writing utilities first.
-3. Only then start training and export work.
+1. Configure the GCP VM environment and runtime paths.
+2. Implement Phase 2 preprocessing code with CPU/GPU compatibility.
+3. Test on a few videos locally.
+4. Run the full preprocessing job on the VM.

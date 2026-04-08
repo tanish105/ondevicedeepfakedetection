@@ -19,7 +19,7 @@ Owns:
   - Full Integer INT8 Static
   - Float16
 - Calibration-set generation for Full Integer INT8
-- Android app and on-device inference benchmarking
+- Mobile app and on-device inference benchmarking once platform is finalized
 - Experiment 1 and Experiment 3 result tables
 
 Deliverables:
@@ -78,6 +78,18 @@ Shared decisions must not drift across branches:
   - prediction exchange files between A and B
 - `artifacts/failures/`
   - copied qualitative failure frames
+
+### Execution environments
+
+- Local laptop:
+  - default environment for code edits, config updates, Git operations, small-sample sanity checks, and report work
+- GCP GPU VM:
+  - default environment for full preprocessing, training, validation, export, and large inference runs
+
+Rules:
+- Python pipeline code must support CPU-only execution.
+- GPU use must be optional and auto-detected at runtime.
+- No training or preprocessing code may hardcode `cuda` as the only valid device.
 
 ## 3. Naming Conventions
 
@@ -363,6 +375,12 @@ Track at minimum:
 - ONNX version
 - onnx2tf or equivalent conversion tool version
 - Android Studio / Gradle / Android SDK versions
+- GCP machine type, GPU type, zone, disk size, and Deep Learning VM image family
+
+Recommended device-selection policy:
+- `device=auto` by default
+- use CUDA when available
+- otherwise run on CPU without code changes
 
 Store environment notes in:
 - `docs/workflow.md`

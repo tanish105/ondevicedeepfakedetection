@@ -46,6 +46,9 @@ Included experiments:
 - Inference unit: frame-level model, video-level majority-vote aggregation
 - Input preprocessing: 25 uniformly sampled frames per video, MTCNN face crop, resize to `224x224`
 - Backbone: ImageNet-pretrained MobileNetV2, fine-tuned separately for DF-vs-real and NT-vs-real
+- Development model: local Windows laptop for coding/debugging, GCP GPU VM for heavy preprocessing and training
+- Runtime compatibility: all Python pipeline code must run on CPU by default and use GPU automatically when available
+- Mobile target: on-device deployment remains mobile-platform-neutral until Android vs iOS is finalized
 
 ## First Milestones
 
@@ -56,3 +59,4 @@ Included experiments:
 5. Run Android benchmarking and evaluation.
 
 See `docs/project_contract.md` for the interface contract.
+See `docs/gcp_vm_setup.md` for the recommended VM profile and usage checklist.
