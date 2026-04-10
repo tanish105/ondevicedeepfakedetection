@@ -41,4 +41,5 @@ DEFAULT_BINARY_THRESHOLD = 0.5
 
 DEFAULT_SPLITS_DIR = PROJECT_ROOT / "data" / "processed" / "splits"
 DEFAULT_MANIFESTS_DIR = PROJECT_ROOT / "data" / "processed" / "manifests"
+DEFAULT_MANIFESTS_BY_SPLIT_DIR = DEFAULT_MANIFESTS_DIR / "by_split"
 DEFAULT_CALIBRATION_DIR = PROJECT_ROOT / "data" / "processed" / "calibration"

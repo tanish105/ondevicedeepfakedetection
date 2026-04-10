@@ -29,6 +29,9 @@ Thumbs.db
 # Data and generated artifacts
 data/raw/
 data/interim/
+data/processed/frames/
+data/processed/manifests/
+data/processed/calibration/
 artifacts/checkpoints/
 artifacts/exports/
 artifacts/metrics/

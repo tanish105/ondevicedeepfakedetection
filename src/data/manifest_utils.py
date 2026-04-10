@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Iterable, List
 
 from src.common.constants import DEFAULT_CALIBRATION_DIR, DEFAULT_MANIFESTS_DIR
-from src.common.csv_io import write_rows
+from src.common.csv_io import read_rows, write_rows
 from src.common.schemas import CalibrationRow, FrameManifestRow
 
 
@@ -30,3 +30,7 @@ def write_default_calibration_manifest(rows: Iterable[CalibrationRow]) -> Path:
 
 def filter_valid_face_rows(rows: Iterable[FrameManifestRow]) -> List[FrameManifestRow]:
     return [row for row in rows if row.face_found == 1]
+
+
+def load_frame_manifest(path: Path) -> List[FrameManifestRow]:
+    return read_rows(path, FrameManifestRow)

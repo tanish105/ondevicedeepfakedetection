@@ -38,6 +38,20 @@ Phase 2 execution note:
 - implement and test on the laptop with a tiny subset first
 - run the full dataset job on the GCP GPU VM
 
+Laptop-safe Phase 2 work:
+- install preprocessing dependencies
+- run smoke tests on `2-4` videos per split
+- validate manifest format and saved face crops
+
+Recommended local smoke test command:
+`python -m src.data.run_preprocessing --task-id mobilenetv2_df_vs_real --split train --device cpu --max-videos 4`
+
+Switch to the GPU VM when:
+- local smoke tests pass
+- you want to process entire train/val/test splits
+- MTCNN latency on CPU becomes the bottleneck
+- you are ready to generate the full calibration manifest
+
 ## Phase 3: FP32 Training
 
 1. Train `mobilenetv2_df_vs_real`.

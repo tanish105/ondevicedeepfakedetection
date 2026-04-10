@@ -17,6 +17,13 @@ face_detection:
   detector: mtcnn
   keep_all: false
   select_face: largest
+  margin: 0
+
+preprocessing:
+  output_frames_dir: data/processed/frames
+  manifests_by_split_dir: data/processed/manifests/by_split
+  local_smoke_max_videos: 4
+  overwrite_images: false
 
 calibration:
   total_frames: 500

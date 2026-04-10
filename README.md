@@ -60,3 +60,14 @@ Included experiments:
 
 See `docs/project_contract.md` for the interface contract.
 See `docs/gcp_vm_setup.md` for the recommended VM profile and usage checklist.
+
+## Phase 2 Notes
+
+Phase 2 preprocessing entry point:
+- `python -m src.data.run_preprocessing --task-id mobilenetv2_df_vs_real --split train --device cpu --max-videos 4`
+
+Required preprocessing dependencies:
+- `opencv-python`
+- `facenet-pytorch`
+
+Use the laptop for smoke tests. Use the GCP GPU VM for full-dataset preprocessing.
