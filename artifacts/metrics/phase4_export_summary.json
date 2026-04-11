@@ -1,0 +1,40 @@
+{
+  "mobilenetv2_df_vs_real": {
+    "task_id": "mobilenetv2_df_vs_real",
+    "onnx": "D:\\Family_N_Friends\\Tanish\\ondevicedeepfakedetection-phase2\\ondevicedeepfakedetection-phase2\\artifacts\\exports\\onnx\\mobilenetv2_df_vs_real.onnx",
+    "onnx_size_mb": 8.47,
+    "saved_model": "D:\\Family_N_Friends\\Tanish\\ondevicedeepfakedetection-phase2\\ondevicedeepfakedetection-phase2\\artifacts\\exports\\saved_model\\mobilenetv2_df_vs_real",
+    "tflite": {
+      "dynamic_range_tflite": {
+        "path": "D:\\Family_N_Friends\\Tanish\\ondevicedeepfakedetection-phase2\\ondevicedeepfakedetection-phase2\\artifacts\\exports\\tflite\\mobilenetv2_df_vs_real_dynamic_range.tflite",
+        "size_mb": 2.38
+      },
+      "float16_tflite": {
+        "path": "D:\\Family_N_Friends\\Tanish\\ondevicedeepfakedetection-phase2\\ondevicedeepfakedetection-phase2\\artifacts\\exports\\tflite\\mobilenetv2_df_vs_real_float16.tflite",
+        "size_mb": 4.26
+      }
+    },
+    "parity": {
+      "skipped": "Pass --skip-parity removed; requires processed images."
+    }
+  },
+  "mobilenetv2_nt_vs_real": {
+    "task_id": "mobilenetv2_nt_vs_real",
+    "onnx": "D:\\Family_N_Friends\\Tanish\\ondevicedeepfakedetection-phase2\\ondevicedeepfakedetection-phase2\\artifacts\\exports\\onnx\\mobilenetv2_nt_vs_real.onnx",
+    "onnx_size_mb": 8.47,
+    "saved_model": "D:\\Family_N_Friends\\Tanish\\ondevicedeepfakedetection-phase2\\ondevicedeepfakedetection-phase2\\artifacts\\exports\\saved_model\\mobilenetv2_nt_vs_real",
+    "tflite": {
+      "dynamic_range_tflite": {
+        "path": "D:\\Family_N_Friends\\Tanish\\ondevicedeepfakedetection-phase2\\ondevicedeepfakedetection-phase2\\artifacts\\exports\\tflite\\mobilenetv2_nt_vs_real_dynamic_range.tflite",
+        "size_mb": 2.39
+      },
+      "float16_tflite": {
+        "path": "D:\\Family_N_Friends\\Tanish\\ondevicedeepfakedetection-phase2\\ondevicedeepfakedetection-phase2\\artifacts\\exports\\tflite\\mobilenetv2_nt_vs_real_float16.tflite",
+        "size_mb": 4.26
+      }
+    },
+    "parity": {
+      "skipped": "Pass --skip-parity removed; requires processed images."
+    }
+  }
+}
