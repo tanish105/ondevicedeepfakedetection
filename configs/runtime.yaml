@@ -1,0 +1,23 @@
+runtime:
+  device: auto
+  allow_cpu_fallback: true
+  mixed_precision: auto
+  deterministic: false
+  seed: 42
+
+dataloader:
+  num_workers:
+    local_cpu: 0
+    gcp_gpu: 4
+  pin_memory: auto
+  persistent_workers: false
+
+execution_profiles:
+  local_cpu:
+    description: Windows laptop or CPU-only environment for smoke tests and debugging
+    batch_size_multiplier: 0.5
+    max_debug_videos: 4
+  gcp_gpu:
+    description: GCP GPU VM for full preprocessing and training
+    batch_size_multiplier: 1.0
+    max_debug_videos: null

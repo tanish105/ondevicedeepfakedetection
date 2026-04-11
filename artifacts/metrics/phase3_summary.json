@@ -1,0 +1,116 @@
+{
+  "mobilenetv2_df_vs_real": {
+    "task_id": "mobilenetv2_df_vs_real",
+    "training": {
+      "task_id": "mobilenetv2_df_vs_real",
+      "best_auc": 0.9995930541019337,
+      "final_epoch": 19,
+      "checkpoint_path": "artifacts\\checkpoints\\mobilenetv2_df_vs_real_best.pth",
+      "train_history": [
+        "EpochMetrics(epoch=0, loss=0.11520265180896967, accuracy=np.float64(0.9540491734963189), auc=0.9918302245459513)",
+        "EpochMetrics(epoch=1, loss=0.06746198355013297, accuracy=np.float64(0.9743297680233366), auc=0.9970557500903863)",
+        "EpochMetrics(epoch=2, loss=0.05922995233246022, accuracy=np.float64(0.9772190582025281), auc=0.9977366290298337)",
+        "EpochMetrics(epoch=3, loss=0.056046490443456505, accuracy=np.float64(0.9781080705653563), auc=0.9979646645924526)",
+        "EpochMetrics(epoch=4, loss=0.050325008740234704, accuracy=np.float64(0.980941797471871), auc=0.9983947315810597)",
+        "EpochMetrics(epoch=5, loss=0.028026391121959832, accuracy=np.float64(0.9892762883733852), auc=0.9995010651168402)",
+        "EpochMetrics(epoch=6, loss=0.026503676161790887, accuracy=np.float64(0.9898319211001528), auc=0.9995187289738664)",
+        "EpochMetrics(epoch=7, loss=0.02613909257132198, accuracy=np.float64(0.9903042089179053), auc=0.9995447161304719)",
+        "EpochMetrics(epoch=8, loss=0.024537800736052707, accuracy=np.float64(0.9897207945547993), auc=0.999627692882249)",
+        "EpochMetrics(epoch=9, loss=0.015828679648169783, accuracy=np.float64(0.9938046950965412), auc=0.999844123369527)",
+        "EpochMetrics(epoch=10, loss=0.013975413445312168, accuracy=np.float64(0.994304764550632), auc=0.9998794788690749)",
+        "EpochMetrics(epoch=11, loss=0.015240192382842199, accuracy=np.float64(0.9936380052785109), auc=0.9998463848001434)",
+        "EpochMetrics(epoch=12, loss=0.013224487587699615, accuracy=np.float64(0.9947214890957078), auc=0.9998826834629042)",
+        "EpochMetrics(epoch=13, loss=0.012616539613696255, accuracy=np.float64(0.9944436727323239), auc=0.9999032725151644)",
+        "EpochMetrics(epoch=14, loss=0.009545554245207718, accuracy=np.float64(0.9957216280038894), auc=0.9999428575846026)",
+        "EpochMetrics(epoch=15, loss=0.00826217245289849, accuracy=np.float64(0.9962216974579803), auc=0.9999593868672239)",
+        "EpochMetrics(epoch=16, loss=0.0085152377739885, accuracy=np.float64(0.9961383525489651), auc=0.9999545336673208)",
+        "EpochMetrics(epoch=17, loss=0.007655379242464227, accuracy=np.float64(0.996416168912349), auc=0.999962630052019)",
+        "EpochMetrics(epoch=18, loss=0.006087215631414438, accuracy=np.float64(0.9967495485484095), auc=0.9999768701185284)",
+        "EpochMetrics(epoch=19, loss=0.0060099124767940435, accuracy=np.float64(0.9973329629115155), auc=0.9999759068880133)"
+      ],
+      "val_history": [
+        "EpochMetrics(epoch=0, loss=0.09747798215550459, accuracy=np.float64(0.9636519748139668), auc=0.996010570436085)",
+        "EpochMetrics(epoch=1, loss=0.07682827965010769, accuracy=np.float64(0.9700915855752719), auc=0.9975352250256)",
+        "EpochMetrics(epoch=2, loss=0.07397700431385901, accuracy=np.float64(0.9718088151116199), auc=0.9974275088710192)",
+        "EpochMetrics(epoch=3, loss=0.06555360147577219, accuracy=np.float64(0.9768174012593016), auc=0.9974245599876997)",
+        "EpochMetrics(epoch=4, loss=0.06237910940735549, accuracy=np.float64(0.9746708643388666), auc=0.997584536907773)",
+        "EpochMetrics(epoch=5, loss=0.04357687083618192, accuracy=np.float64(0.9846880366342301), auc=0.9989288181342563)",
+        "EpochMetrics(epoch=6, loss=0.1261331858011443, accuracy=np.float64(0.9629364625071551), auc=0.9981487565828701)",
+        "EpochMetrics(epoch=7, loss=0.053940491330710556, accuracy=np.float64(0.9793932455638237), auc=0.9987670391188213)",
+        "EpochMetrics(epoch=8, loss=0.12566287082213276, accuracy=np.float64(0.951345163136806), auc=0.9988632464371141)",
+        "EpochMetrics(epoch=9, loss=0.036706681495445016, accuracy=np.float64(0.9856897538637664), auc=0.9991810295714838)",
+        "EpochMetrics(epoch=10, loss=0.02750105380750229, accuracy=np.float64(0.9896966227819118), auc=0.9992983295968524)",
+        "EpochMetrics(epoch=11, loss=0.043575331521032296, accuracy=np.float64(0.9845449341728678), auc=0.9987809644011624)",
+        "EpochMetrics(epoch=12, loss=0.031505852612218915, accuracy=np.float64(0.9889811104751002), auc=0.9992907116482775)",
+        "EpochMetrics(epoch=13, loss=0.034539223720926056, accuracy=np.float64(0.9888380080137379), auc=0.9992484443207005)",
+        "EpochMetrics(epoch=14, loss=0.025582392079066908, accuracy=np.float64(0.9902690326273612), auc=0.99952080646061)",
+        "EpochMetrics(epoch=15, loss=0.028336169934842736, accuracy=np.float64(0.9901259301659988), auc=0.9994513438757551)",
+        "EpochMetrics(epoch=16, loss=0.031191303841588244, accuracy=np.float64(0.9898397252432742), auc=0.9993872056635598)",
+        "EpochMetrics(epoch=17, loss=0.021683157071152502, accuracy=np.float64(0.9927017744705209), auc=0.9994428248794993)",
+        "EpochMetrics(epoch=18, loss=0.0350739908110188, accuracy=np.float64(0.9884087006296508), auc=0.9994358622383286)",
+        "EpochMetrics(epoch=19, loss=0.019792220154451496, accuracy=np.float64(0.9932741843159703), auc=0.9995930541019337)"
+      ]
+    },
+    "testing": {
+      "task_id": "mobilenetv2_df_vs_real",
+      "split": "test",
+      "quant_id": "fp32_gpu",
+      "accuracy": 0.9887142857142858,
+      "auc": 0.9991040816326531,
+      "roc_auc": 0.9991040816326531,
+      "num_samples": 7000,
+      "num_real": 3500,
+      "num_fake": 3500
+    },
+    "validation_gate_passed": true,
+    "gate_auc": 0.9995930541019337,
+    "checkpoint_path": "artifacts\\checkpoints\\mobilenetv2_df_vs_real_best.pth"
+  },
+  "mobilenetv2_nt_vs_real": {
+    "task_id": "mobilenetv2_nt_vs_real",
+    "training": {
+      "task_id": "mobilenetv2_nt_vs_real",
+      "best_auc": 0.9732443867316518,
+      "final_epoch": 9,
+      "checkpoint_path": "artifacts\\checkpoints\\mobilenetv2_nt_vs_real_best.pth",
+      "train_history": [
+        "EpochMetrics(epoch=0, loss=0.2934080223772261, accuracy=np.float64(0.8783021750604183), auc=0.9471210345019168)",
+        "EpochMetrics(epoch=1, loss=0.22398465001914236, accuracy=np.float64(0.9109419706102947), auc=0.9688614475495554)",
+        "EpochMetrics(epoch=2, loss=0.20225793353054258, accuracy=np.float64(0.9184421789494153), auc=0.9745982786080709)",
+        "EpochMetrics(epoch=3, loss=0.1892554818474584, accuracy=np.float64(0.9244701241701159), auc=0.977814356970449)",
+        "EpochMetrics(epoch=4, loss=0.18016997272272905, accuracy=np.float64(0.9294424845134587), auc=0.9798126701483417)",
+        "EpochMetrics(epoch=5, loss=0.17264740139245988, accuracy=np.float64(0.9336092669240812), auc=0.981291300133958)",
+        "EpochMetrics(epoch=6, loss=0.16620859660208226, accuracy=np.float64(0.9343592877579933), auc=0.9828387132618478)",
+        "EpochMetrics(epoch=7, loss=0.15680478483107355, accuracy=np.float64(0.9389983055084864), auc=0.9846588375280109)",
+        "EpochMetrics(epoch=8, loss=0.11928447590188848, accuracy=np.float64(0.9537209366926859), auc=0.9909845006821367)",
+        "EpochMetrics(epoch=9, loss=0.11122787483616008, accuracy=np.float64(0.9558876635462096), auc=0.9922237655178375)"
+      ],
+      "val_history": [
+        "EpochMetrics(epoch=0, loss=0.24568848663273365, accuracy=np.float64(0.905544441268934), auc=0.9642341775517294)",
+        "EpochMetrics(epoch=1, loss=0.2482760654056453, accuracy=np.float64(0.8972563589597028), auc=0.9661725095015511)",
+        "EpochMetrics(epoch=2, loss=0.3887782780060096, accuracy=np.float64(0.8368105172906545), auc=0.9530394141109684)",
+        "EpochMetrics(epoch=3, loss=0.3457778503028724, accuracy=np.float64(0.8533866819091169), auc=0.9669668408913795)",
+        "EpochMetrics(epoch=4, loss=0.20554776828960392, accuracy=np.float64(0.9229779937124892), auc=0.9732443867316518)",
+        "EpochMetrics(epoch=5, loss=0.3802703253189078, accuracy=np.float64(0.8598170905973135), auc=0.966954384795035)",
+        "EpochMetrics(epoch=6, loss=0.285294681574802, accuracy=np.float64(0.8999714204058302), auc=0.9704364967380138)",
+        "EpochMetrics(epoch=7, loss=0.24463480688384617, accuracy=np.float64(0.9119748499571306), auc=0.9653380327257997)",
+        "EpochMetrics(epoch=8, loss=0.2263771078892724, accuracy=np.float64(0.9271220348671049), auc=0.9731978295190862)",
+        "EpochMetrics(epoch=9, loss=0.2327137982583611, accuracy=np.float64(0.9236924835667334), auc=0.9715340626044218)"
+      ]
+    },
+    "testing": {
+      "task_id": "mobilenetv2_nt_vs_real",
+      "split": "test",
+      "quant_id": "fp32_gpu",
+      "accuracy": 0.924,
+      "auc": 0.9732737959183673,
+      "roc_auc": 0.9732737959183673,
+      "num_samples": 7000,
+      "num_real": 3500,
+      "num_fake": 3500
+    },
+    "validation_gate_passed": true,
+    "gate_auc": 0.9732443867316518,
+    "checkpoint_path": "artifacts\\checkpoints\\mobilenetv2_nt_vs_real_best.pth"
+  }
+}

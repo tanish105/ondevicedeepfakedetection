@@ -1,0 +1,6 @@
+{
+  "task_id": "mobilenetv2_df_vs_real",
+  "split": "val",
+  "best_auc": 0.9995930541019337,
+  "note": "Best AUC achieved during training on validation set"
+}

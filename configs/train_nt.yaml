@@ -1,0 +1,25 @@
+task_id: mobilenetv2_nt_vs_real
+model:
+  backbone: mobilenet_v2
+  pretrained: imagenet
+  input_size: 224
+  num_classes: 1
+
+data:
+  train_split_csv: data/processed/splits/nt_vs_real_train.csv
+  val_split_csv: data/processed/splits/nt_vs_real_val.csv
+  frame_manifest_csv: data/processed/manifests/nt_vs_real_frames.csv
+
+training:
+  precision: fp32
+  device: auto
+  batch_size: 32
+  num_workers: 4
+  epochs: 10
+  optimizer: adam
+  learning_rate: 0.0001
+  weight_decay: 0.00001
+  loss: bce_with_logits
+  metric: roc_auc
+  export_gate_min_auc: 0.85
+  allow_cpu_fallback: true

@@ -1,0 +1,19 @@
+export:
+  source_framework: pytorch
+  intermediate_formats:
+    - onnx
+    - saved_model
+  target_format: tflite
+
+quantization:
+  methods:
+    - dynamic_range_tflite
+    - int8_static_tflite
+    - float16_tflite
+  int8_static:
+    calibration_manifest_csv: data/processed/calibration/int8_calibration_frames.csv
+    calibration_frame_count: 500
+
+validation:
+  parity_sample_count: 64
+  max_score_delta: 0.05

@@ -1,0 +1,11 @@
+{
+  "task_id": "mobilenetv2_nt_vs_real",
+  "split": "test",
+  "quant_id": "fp32_gpu",
+  "accuracy": 0.924,
+  "auc": 0.9732737959183673,
+  "roc_auc": 0.9732737959183673,
+  "num_samples": 7000,
+  "num_real": 3500,
+  "num_fake": 3500
+}
