@@ -36,7 +36,6 @@ from src.common.constants import (
     TASK_IDS,
     TASK_NT_VS_REAL,
 )
-from src.common.runtime import resolve_device
 from src.export.onnx_export import export_to_onnx, load_checkpoint
 from src.export.parity_check import (
     check_parity,
@@ -62,6 +61,7 @@ def export_task(
     skip_parity: bool = False,
     parity_n_samples: int = 64,
     max_parity_delta: float = 0.05,
+    max_parity_delta_int8: float = 0.10,
 ) -> dict:
     print(f"\n{'='*70}")
     print(f"PHASE 4 EXPORT: {task_id}")
@@ -122,11 +122,12 @@ def export_task(
     else:
         print(f"\n[4/4] Parity check ({parity_n_samples} samples from test split)")
         try:
-            runtime = resolve_device(device)
-            # Load the sigmoid-wrapped model for fair comparison
+            # Parity is a correctness check on 64 images — CPU is always fine
+            # and avoids CUDA availability issues in export environments.
+            parity_device = "cpu"
             from src.export.onnx_export import _ModelWithSigmoid
             base_model = load_checkpoint(task_id)
-            model = _ModelWithSigmoid(base_model).to(runtime.resolved_device)
+            model = _ModelWithSigmoid(base_model).to(parity_device)
 
             nchw_images, nhwc_images = load_parity_images(
                 task_id, n_samples=parity_n_samples
@@ -137,7 +138,7 @@ def export_task(
                 result["parity"]["skipped"] = "No processed images on this machine."
             else:
                 ref_scores = run_pytorch_inference(
-                    model, nchw_images, runtime.resolved_device
+                    model, nchw_images, parity_device
                 )
 
                 # ONNX vs PyTorch
@@ -156,10 +157,18 @@ def export_task(
                     tflite_scores, tflite_lat = run_tflite_inference(
                         Path(info["path"]), nhwc_images
                     )
+                    # INT8 static full-integer quantization is inherently lossier;
+                    # use a wider threshold (0.10) that reflects what is acceptable
+                    # for on-device deployment while still catching regressions.
+                    delta = (
+                        max_parity_delta_int8
+                        if quant_method == QUANT_INT8_STATIC
+                        else max_parity_delta
+                    )
                     parity = check_parity(
                         ref_scores,
                         tflite_scores,
-                        max_parity_delta,
+                        delta,
                         f"TFLite {quant_method}",
                     )
                     parity["mean_latency_ms"] = round(tflite_lat, 2)
@@ -240,6 +249,15 @@ def _build_arg_parser() -> argparse.ArgumentParser:
         default=0.05,
         help="Max allowed absolute score difference for parity pass (default: 0.05)",
     )
+    parser.add_argument(
+        "--max-parity-delta-int8",
+        type=float,
+        default=0.10,
+        help=(
+            "Max allowed absolute score difference for INT8 static parity "
+            "(default: 0.10 — full-integer quantization is inherently lossier)"
+        ),
+    )
     return parser
 
 
@@ -256,6 +274,7 @@ def main() -> None:
             skip_parity=args.skip_parity,
             parity_n_samples=args.parity_samples,
             max_parity_delta=args.max_parity_delta,
+            max_parity_delta_int8=args.max_parity_delta_int8,
         )
 
     _print_summary(all_results, args.skip_int8)

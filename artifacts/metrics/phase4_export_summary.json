@@ -7,15 +7,57 @@
     "tflite": {
       "dynamic_range_tflite": {
         "path": "D:\\Family_N_Friends\\Tanish\\ondevicedeepfakedetection-phase2\\ondevicedeepfakedetection-phase2\\artifacts\\exports\\tflite\\mobilenetv2_df_vs_real_dynamic_range.tflite",
-        "size_mb": 2.38
+        "size_mb": 2.38,
+        "local_latency_ms": 1044.61
       },
       "float16_tflite": {
         "path": "D:\\Family_N_Friends\\Tanish\\ondevicedeepfakedetection-phase2\\ondevicedeepfakedetection-phase2\\artifacts\\exports\\tflite\\mobilenetv2_df_vs_real_float16.tflite",
-        "size_mb": 4.26
+        "size_mb": 4.26,
+        "local_latency_ms": 34.05
+      },
+      "int8_static_tflite": {
+        "path": "D:\\Family_N_Friends\\Tanish\\ondevicedeepfakedetection-phase2\\ondevicedeepfakedetection-phase2\\artifacts\\exports\\tflite\\mobilenetv2_df_vs_real_int8_static.tflite",
+        "size_mb": 2.58,
+        "local_latency_ms": 1122.36
       }
     },
     "parity": {
-      "skipped": "Pass --skip-parity removed; requires processed images."
+      "onnx": {
+        "label": "ONNX vs PyTorch",
+        "n_samples": 64,
+        "max_delta": 0.0,
+        "mean_delta": 0.0,
+        "threshold": 0.05,
+        "passed": true,
+        "mean_latency_ms": 56.95
+      },
+      "dynamic_range_tflite": {
+        "label": "TFLite dynamic_range_tflite",
+        "n_samples": 64,
+        "max_delta": 0.00024,
+        "mean_delta": 8e-06,
+        "threshold": 0.05,
+        "passed": true,
+        "mean_latency_ms": 1044.61
+      },
+      "float16_tflite": {
+        "label": "TFLite float16_tflite",
+        "n_samples": 64,
+        "max_delta": 1.8e-05,
+        "mean_delta": 0.0,
+        "threshold": 0.05,
+        "passed": true,
+        "mean_latency_ms": 34.05
+      },
+      "int8_static_tflite": {
+        "label": "TFLite int8_static_tflite",
+        "n_samples": 64,
+        "max_delta": 0.0039,
+        "mean_delta": 0.000879,
+        "threshold": 0.1,
+        "passed": true,
+        "mean_latency_ms": 1122.36
+      }
     }
   },
   "mobilenetv2_nt_vs_real": {
@@ -26,15 +68,57 @@
     "tflite": {
       "dynamic_range_tflite": {
         "path": "D:\\Family_N_Friends\\Tanish\\ondevicedeepfakedetection-phase2\\ondevicedeepfakedetection-phase2\\artifacts\\exports\\tflite\\mobilenetv2_nt_vs_real_dynamic_range.tflite",
-        "size_mb": 2.39
+        "size_mb": 2.39,
+        "local_latency_ms": 1059.95
       },
       "float16_tflite": {
         "path": "D:\\Family_N_Friends\\Tanish\\ondevicedeepfakedetection-phase2\\ondevicedeepfakedetection-phase2\\artifacts\\exports\\tflite\\mobilenetv2_nt_vs_real_float16.tflite",
-        "size_mb": 4.26
+        "size_mb": 4.26,
+        "local_latency_ms": 37.09
+      },
+      "int8_static_tflite": {
+        "path": "D:\\Family_N_Friends\\Tanish\\ondevicedeepfakedetection-phase2\\ondevicedeepfakedetection-phase2\\artifacts\\exports\\tflite\\mobilenetv2_nt_vs_real_int8_static.tflite",
+        "size_mb": 2.58,
+        "local_latency_ms": 1109.93
       }
     },
     "parity": {
-      "skipped": "Pass --skip-parity removed; requires processed images."
+      "onnx": {
+        "label": "ONNX vs PyTorch",
+        "n_samples": 64,
+        "max_delta": 1e-06,
+        "mean_delta": 0.0,
+        "threshold": 0.05,
+        "passed": true,
+        "mean_latency_ms": 11.18
+      },
+      "dynamic_range_tflite": {
+        "label": "TFLite dynamic_range_tflite",
+        "n_samples": 64,
+        "max_delta": 0.011188,
+        "mean_delta": 0.000784,
+        "threshold": 0.05,
+        "passed": true,
+        "mean_latency_ms": 1059.95
+      },
+      "float16_tflite": {
+        "label": "TFLite float16_tflite",
+        "n_samples": 64,
+        "max_delta": 0.003517,
+        "mean_delta": 0.000203,
+        "threshold": 0.05,
+        "passed": true,
+        "mean_latency_ms": 37.09
+      },
+      "int8_static_tflite": {
+        "label": "TFLite int8_static_tflite",
+        "n_samples": 64,
+        "max_delta": 0.087922,
+        "mean_delta": 0.005408,
+        "threshold": 0.1,
+        "passed": true,
+        "mean_latency_ms": 1109.93
+      }
     }
   }
 }
