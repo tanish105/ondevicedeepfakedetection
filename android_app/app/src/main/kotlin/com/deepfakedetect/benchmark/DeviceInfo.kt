@@ -21,8 +21,13 @@ object DeviceInfo {
         val memInfo = ActivityManager.MemoryInfo().also { am.getMemoryInfo(it) }
         val totalRamMb = memInfo.totalMem / (1024L * 1024L)
 
+        val manufacturer = Build.MANUFACTURER.trim()
+        val model = Build.MODEL.trim()
+        val deviceName = if (model.startsWith(manufacturer, ignoreCase = true)) model
+                         else "$manufacturer $model"
+
         val json = JSONObject().apply {
-            put("device_name",        "${Build.MANUFACTURER} ${Build.MODEL}".trim())
+            put("device_name",        deviceName)
             put("manufacturer",       Build.MANUFACTURER)
             put("model",              Build.MODEL)
             put("hardware",           Build.HARDWARE)          // SoC / chipset
