@@ -57,7 +57,11 @@ Switch to the GPU VM when:
 1. Train `mobilenetv2_df_vs_real`.
 2. Train `mobilenetv2_nt_vs_real`.
 3. Validate both and gate export on `AUC > 0.85`.
-4. Record FP32 GPU metrics and prediction files.
+4. Run inference on the full **test split** with the FP32 PyTorch model and write
+   `FramePredictionRow` CSVs (`quant_id=fp32_gpu`, `runtime=pytorch_fp32`) to
+   `artifacts/predictions/`.  These are the FP32-GPU baseline required by
+   Experiments 1 and 2.
+5. Record FP32 GPU metrics (AUC, Binary Accuracy at 0.5 threshold, model size).
 
 Phase 3 execution note:
 - training and full validation are expected to run on the GCP GPU VM
@@ -75,18 +79,47 @@ Phase 3 execution note:
 
 ## Phase 5: Mobile Inference
 
-1. Integrate TFLite models into `android_app/`.
-2. Run single-image inference.
-3. Benchmark sampled FF++ test frames on device.
-4. Record latency, FPS, model size, and device specs.
+1. Integrate all **six** TFLite models into `android_app/` (2 tasks × 3 quant
+   variants: `dynamic_range`, `float16`, `int8_static`).
+2. Implement single-image inference pipeline in Kotlin:
+   - Load `(1, 224, 224, 3)` float32 NHWC tensors.
+   - Read `score_fake` output directly (sigmoid baked in).
+3. Push the FF++ test-split face-crop images onto the device and run **full
+   test-set inference** for all three quantization variants.
+4. For each quant variant write a `FramePredictionRow` CSV to
+   `artifacts/predictions/` (fields: `task_id`, `quant_id`, `split`,
+   `video_id`, `frame_idx`, `image_path`, `manipulation_type`,
+   `binary_label`, `score_fake`, `pred_label`, `latency_ms`,
+   `device_name`, `runtime`).
+5. Aggregate frame-level predictions to video-level with majority vote and
+   write `VideoPredictionRow` CSVs to `artifacts/predictions/`.
+6. Record per-variant: mean per-frame latency (ms), FPS, model size (MB),
+   and device specs (device name, Android API level, chipset).
 
 ## Phase 6: Analysis
 
-1. Compute overall frame-level and video-level metrics.
-2. Compute per-class DF and NT AUC.
-3. Compute quantization gaps.
-4. Mine NT failure examples.
-5. Build experiment tables.
+Inputs: `FramePredictionRow` and `VideoPredictionRow` CSVs from Phase 3
+(FP32-GPU baseline) and Phase 5 (all three on-device quant variants).
+
+1. Compute overall frame-level metrics per condition:
+   - AUC (primary, threshold-independent).
+   - Binary Accuracy at threshold 0.5.
+2. Compute per-class AUC and Accuracy for DF and NT separately.
+3. Compute quantization gap per method:
+   `AUC(FP32-GPU) − AUC(quantized)` for Dynamic Range, Float16, INT8 Static.
+4. Build Experiment 1 table: FP32-GPU vs INT8-Mobile — AUC, Accuracy, FPS,
+   model size, quantization gap.
+5. Build Experiment 2 table: per-class (DF vs NT) AUC and gap under
+   FP32-GPU and INT8-Mobile; confirm gap is larger for NT than DF.
+6. Build Experiment 3 table: all three quant methods — AUC (overall + per-class),
+   Accuracy, FPS, model size, quantization gap.
+7. Mine NT failure examples: identify NT test frames where FP32-GPU predicts
+   correctly but INT8-Mobile misclassifies.
+8. Produce qualitative failure grid: 4–6 NT failure frames shown side-by-side
+   (frame image, FP32 score, INT8 score) to ground the numerical findings
+   visually.
+9. Compute video-level accuracy and majority-vote FPS from `VideoPredictionRow`
+   CSVs.
 
 ## Immediate Next Steps
 
