@@ -1,0 +1,4 @@
+# Gradle wrapper — enforce correct line endings and binary handling
+gradlew               text eol=lf
+gradlew.bat           text eol=crlf
+gradle/wrapper/gradle-wrapper.jar  binary
