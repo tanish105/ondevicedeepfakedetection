@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Phase 5 helper: pull benchmark result CSVs from the Android device.
 
 Pulls everything under /sdcard/deepfake_benchmark/results/ into

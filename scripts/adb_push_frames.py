@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Phase 5 helper: push test-frame images and manifest CSVs to the Android device.
 
 What gets pushed
