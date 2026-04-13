@@ -14,6 +14,8 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+# Import directly from src.common.constants (not the src.common package)
+# to avoid pulling in src.common.runtime, which requires PyTorch at import time.
 from src.common.constants import PROJECT_ROOT, TASK_IDS, QUANT_DYNAMIC_RANGE, QUANT_FLOAT16, QUANT_INT8_STATIC
 
 TFLITE_QUANT_IDS = (QUANT_DYNAMIC_RANGE, QUANT_FLOAT16, QUANT_INT8_STATIC)
@@ -27,7 +29,7 @@ def collect_csvs(results_dir: Path, preds_dir: Path) -> None:
     """Move all CSVs from results_dir into preds_dir (one level up)."""
     for csv_file in results_dir.glob("*.csv"):
         dest = preds_dir / csv_file.name
-        shutil.move(str(csv_file), str(dest))
+        shutil.move(csv_file, dest)
 
 
 def collect_device_specs(results_dir: Path, metrics_dir: Path) -> None:
@@ -37,7 +39,7 @@ def collect_device_specs(results_dir: Path, metrics_dir: Path) -> None:
         print("WARNING: device_specs.json not found in results dir — skipping.")
         return
     metrics_dir.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(str(src), str(metrics_dir / "device_specs.json"))
+    shutil.copy2(src, metrics_dir / "device_specs.json")
 
 
 def compute_summary(preds_dir: Path) -> dict[str, dict[str, Any]]:
@@ -63,6 +65,7 @@ def compute_summary(preds_dir: Path) -> dict[str, dict[str, Any]]:
                     latencies.append(float(row["latency_ms"]))
 
             if not latencies:
+                print(f"  EMPTY: {csv_path.name} (no data rows)")
                 continue
 
             mean_lat = sum(latencies) / len(latencies)

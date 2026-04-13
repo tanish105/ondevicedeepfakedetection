@@ -107,3 +107,16 @@ def test_compute_summary_mean_latency(tmp_layout):
     assert entry["mean_latency_ms"] == pytest.approx(30.0)
     assert entry["fps"] == pytest.approx(1000.0 / 30.0)
     assert entry["num_frames"] == 2
+
+
+def test_compute_summary_missing_csv(tmp_layout):
+    tmp, results_dir, metrics_dir, preds_dir = tmp_layout
+    # preds_dir has no CSVs at all
+
+    summary = compute_summary(preds_dir)
+
+    # The returned dict has both task_id keys but no quant_id sub-entries
+    assert "mobilenetv2_df_vs_real" in summary
+    assert "mobilenetv2_nt_vs_real" in summary
+    assert summary["mobilenetv2_df_vs_real"] == {}
+    assert summary["mobilenetv2_nt_vs_real"] == {}
