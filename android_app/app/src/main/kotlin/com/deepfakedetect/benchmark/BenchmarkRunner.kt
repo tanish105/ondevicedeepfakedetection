@@ -46,6 +46,14 @@ class BenchmarkRunner(
             }
         }
 
+        // Write device specs alongside result CSVs
+        try {
+            DeviceInfo.write(context, resultsDir)
+            onProgress("\nDevice specs written: ${BenchmarkConfig.RESULTS_DIR}/device_specs.json")
+        } catch (e: Exception) {
+            onProgress("WARNING: Could not write device_specs.json: ${e.message}")
+        }
+
         onProgress("\nAll benchmark runs complete.")
         onProgress("Results in: ${BenchmarkConfig.RESULTS_DIR}")
     }
