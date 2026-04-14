@@ -16,7 +16,6 @@ from src.common.constants import (
     TASK_NT_VS_REAL,
 )
 from src.common.csv_io import read_rows, write_rows
-from src.common.runtime import RuntimeContext, resolve_device
 from src.common.schemas import (
     CalibrationRow,
     FailureMetadataRow,
@@ -51,7 +50,5 @@ __all__ = [
     "VideoIndexRow",
     "VideoPredictionRow",
     "read_rows",
-    "resolve_device",
-    "RuntimeContext",
     "write_rows",
 ]

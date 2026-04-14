@@ -1,0 +1,38 @@
+[
+  {
+    "quant_id": "dynamic_range_tflite",
+    "df_auc": 0.9990596617151142,
+    "nt_auc": 0.973110693877551,
+    "df_accuracy": 0.9882562806600268,
+    "nt_accuracy": 0.9241428571428572,
+    "df_fps": 1.3904619834814815,
+    "nt_fps": 7.479154469000001,
+    "model_size_mb": 2.38,
+    "df_quant_gap": 4.4e-05,
+    "nt_quant_gap": 0.000163
+  },
+  {
+    "quant_id": "float16_tflite",
+    "df_auc": 0.9991054693877551,
+    "nt_auc": 0.9732713469387755,
+    "df_accuracy": 0.9887142857142858,
+    "nt_accuracy": 0.924,
+    "df_fps": 6.421809781928571,
+    "nt_fps": 5.733670796785715,
+    "model_size_mb": 4.26,
+    "df_quant_gap": -1e-06,
+    "nt_quant_gap": 2e-06
+  },
+  {
+    "quant_id": "int8_static_tflite",
+    "df_auc": 0.99872,
+    "nt_auc": 0.9709871020408163,
+    "df_accuracy": 0.988,
+    "nt_accuracy": 0.9131428571428571,
+    "df_fps": 12.975253333392857,
+    "nt_fps": 12.220029143571429,
+    "model_size_mb": 2.58,
+    "df_quant_gap": 0.000384,
+    "nt_quant_gap": 0.002287
+  }
+]

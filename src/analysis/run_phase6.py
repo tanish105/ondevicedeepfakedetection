@@ -27,7 +27,6 @@ from src.common.schemas import (
 PREDS_DIR = PROJECT_ROOT / "artifacts" / "predictions"
 METRICS_DIR = PROJECT_ROOT / "artifacts" / "metrics"
 ANALYSIS_DIR = PROJECT_ROOT / "artifacts" / "analysis"
-FRAMES_ROOT = PROJECT_ROOT
 
 _TFLITE_QUANT_IDS = [QUANT_DYNAMIC_RANGE, QUANT_FLOAT16, QUANT_INT8_STATIC]
 
@@ -43,12 +42,18 @@ def _video_csv(task_id: str, quant_id: str) -> Path:
 
 
 def _load_model_sizes() -> Dict[str, Dict[str, float]]:
-    data = json.loads((METRICS_DIR / "phase4_export_summary.json").read_text(encoding="utf-8"))
+    path = METRICS_DIR / "phase4_export_summary.json"
+    data = json.loads(path.read_text(encoding="utf-8"))
     sizes: Dict[str, Dict[str, float]] = {}
     for task_id, info in data.items():
-        sizes[task_id] = {QUANT_FP32_GPU: info["onnx_size_mb"]}
-        for quant_id, tflite_info in info["tflite"].items():
-            sizes[task_id][quant_id] = tflite_info["size_mb"]
+        try:
+            sizes[task_id] = {QUANT_FP32_GPU: info["onnx_size_mb"]}
+            for quant_id, tflite_info in info["tflite"].items():
+                sizes[task_id][quant_id] = tflite_info["size_mb"]
+        except KeyError as exc:
+            raise KeyError(
+                f"Unexpected structure in {path} for task '{task_id}': missing key {exc}"
+            ) from exc
     return sizes
 
 
@@ -124,13 +129,15 @@ def main() -> None:
     exp3 = build_experiment_3(all_metrics)
 
     print("Mining NT failure frames...")
+    # NT frame rows are re-loaded here because build_all_metrics discards raw rows
+    # after computing metrics. Acceptable for a research script (7k rows, ~1s).
     fp32_nt_rows = read_rows(_frame_csv(TASK_NT_VS_REAL, QUANT_FP32_GPU), FramePredictionRow)
     int8_nt_rows = read_rows(_frame_csv(TASK_NT_VS_REAL, QUANT_INT8_STATIC), FramePredictionRow)
     failures = mine_nt_failures(fp32_nt_rows, int8_nt_rows, n=20)
 
     print(f"Found {len(failures)} NT failure candidates. Saving top 6 to grid...")
     write_rows(ANALYSIS_DIR / "nt_failure_frames.csv", failures, FailureMetadataRow)
-    render_failure_grid(failures, frames_root=FRAMES_ROOT, output_path=ANALYSIS_DIR / "nt_failure_grid.png", n=6)
+    render_failure_grid(failures, frames_root=PROJECT_ROOT, output_path=ANALYSIS_DIR / "nt_failure_grid.png", n=6)
 
     # Write JSON outputs
     (ANALYSIS_DIR / "experiment_1.json").write_text(json.dumps(exp1, indent=2), encoding="utf-8")

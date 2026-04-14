@@ -54,6 +54,8 @@ def build_experiment_2(all_metrics: AllMetrics) -> List[dict]:
     Reshapes Experiment 1 rows by adding manipulation_class to show gap
     is larger for NT than DF.
     """
+    # Experiment 2 is Experiment 1 with manipulation_class projected in.
+    # Any change to build_experiment_1 columns will propagate here.
     return [
         {**row, "manipulation_class": TASK_TO_FAKE_CLASS[row["task_id"]]}
         for row in build_experiment_1(all_metrics)
