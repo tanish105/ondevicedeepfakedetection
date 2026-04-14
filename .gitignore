@@ -33,6 +33,8 @@ Thumbs.db
 data/raw/
 data/interim/
 data/processed/frames/
+data/processed/frames
+/data/processed/frames
 data/processed/manifests/
 data/processed/calibration/
 
@@ -46,7 +48,17 @@ artifacts/failures/
 # artifacts/metrics/ and artifacts/predictions/ ARE committed:
 # they are small JSON/CSV files needed by collaborators for analysis (Phase 6)
 
-# Android
+# Leftover adb-pull staging directory (CSVs are moved one level up by collect_phase5_results.py)
+artifacts/predictions/results/
+
+# Android — machine-local SDK path, never committed
+android_app/local.properties
 android_app/.gradle/
 android_app/build/
 android_app/app/build/
+
+# Claude Code internal files
+.claude/
+
+# Claude superpowers plugin cache
+docs/superpowers/

@@ -71,6 +71,41 @@ pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 pip install -r requirements.txt
 ```
 
+## Data Setup
+
+All data directories are gitignored (too large). Here is exactly where each thing lives:
+
+```
+data/
+  raw/ffpp_c23/                  FF++ source videos (download from official source)
+  processed/
+    frames/                      Face-cropped PNGs — produced by Phase 2 preprocessing
+      df_vs_real/
+        train/  val/  test/      One subdirectory per video_id, 25 PNGs each
+      nt_vs_real/
+        train/  val/  test/
+    manifests/                   Frame manifest CSVs (FrameManifestRow schema)
+    calibration/                 INT8 calibration manifest (500 val frames)
+    splits/                      Official train/val/test split CSVs
+```
+
+**For Android benchmarking specifically**, the test-split face crops need to be on
+the device. The `scripts/adb_push_frames.py` script reads from:
+```
+data/processed/frames/df_vs_real/test/
+data/processed/frames/nt_vs_real/test/
+```
+If your frames live elsewhere, create a symlink:
+```bash
+ln -s /your/actual/frames/path data/processed/frames
+```
+
+**For the GCP VM**, processed frames were stored at:
+```
+data/phone_data/frames/frames/
+```
+and a symlink was used locally: `data/processed/frames → data/phone_data/frames/frames`.
+
 ## Trained Checkpoints
 
 Trained FP32 checkpoints (`artifacts/checkpoints/`) are **not committed to git** (binary files).
