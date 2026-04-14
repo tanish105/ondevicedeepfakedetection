@@ -44,5 +44,10 @@ dependencies {
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.tensorflow.lite)
-    implementation(libs.tensorflow.lite.support)
+    implementation(libs.tensorflow.lite.support) {
+        // tensorflow-lite-support:0.4.4 pulls in tensorflow-lite-api:2.13.0, which
+        // conflicts with litert-api:1.0.1 bundled in tensorflow-lite:2.17.0.
+        // Exclude the old api artifact so only litert-api is on the classpath.
+        exclude(group = "org.tensorflow", module = "tensorflow-lite-api")
+    }
 }

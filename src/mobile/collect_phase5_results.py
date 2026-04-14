@@ -10,12 +10,17 @@ from __future__ import annotations
 
 import csv
 import json
+import sys
+import types
 import shutil
 from pathlib import Path
 from typing import Any
 
-# Import directly from src.common.constants (not the src.common package)
-# to avoid pulling in src.common.runtime, which requires PyTorch at import time.
+# Stub out torch so that src.common.runtime (pulled in via src.common.__init__)
+# can be imported on machines without PyTorch installed (e.g. CI, mobile pipeline).
+if "torch" not in sys.modules:
+    sys.modules["torch"] = types.ModuleType("torch")
+
 from src.common.constants import PROJECT_ROOT, TASK_IDS, QUANT_DYNAMIC_RANGE, QUANT_FLOAT16, QUANT_INT8_STATIC
 
 TFLITE_QUANT_IDS = (QUANT_DYNAMIC_RANGE, QUANT_FLOAT16, QUANT_INT8_STATIC)

@@ -14,7 +14,7 @@ object DeviceInfo {
 
     // TFLite version comes from libs.versions.toml — hardcoded here to avoid
     // a runtime dependency on internal TFLite APIs.
-    private const val TFLITE_VERSION = "2.16.1"
+    private const val TFLITE_VERSION = "2.17.0"
 
     fun write(context: Context, resultsDir: File) {
         val am = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
