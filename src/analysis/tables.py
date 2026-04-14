@@ -10,13 +10,13 @@ from src.common.constants import (
     QUANT_INT8_STATIC,
     TASK_DF_VS_REAL,
     TASK_NT_VS_REAL,
+    TASK_TO_FAKE_CLASS,
 )
 
 # all_metrics shape: {task_id: {quant_id: {auc, accuracy, fps, model_size_mb, video_accuracy, num_frames}}}
 AllMetrics = Dict[str, Dict[str, Dict[str, Any]]]
 
 _TFLITE_QUANT_IDS = [QUANT_DYNAMIC_RANGE, QUANT_FLOAT16, QUANT_INT8_STATIC]
-_TASK_TO_CLASS = {TASK_DF_VS_REAL: "df", TASK_NT_VS_REAL: "nt"}
 
 
 def _gap(fp32_auc: float, quant_auc: float) -> float:
@@ -51,28 +51,13 @@ def build_experiment_1(all_metrics: AllMetrics) -> List[dict]:
 def build_experiment_2(all_metrics: AllMetrics) -> List[dict]:
     """Per-class (DF vs NT) AUC comparison under FP32-GPU and INT8-Mobile.
 
-    Rows keyed by (manipulation_class, quant_id). Confirms gap is larger for NT.
+    Reshapes Experiment 1 rows by adding manipulation_class to show gap
+    is larger for NT than DF.
     """
-    rows = []
-    for task_id in (TASK_DF_VS_REAL, TASK_NT_VS_REAL):
-        task_m = all_metrics[task_id]
-        fp32_auc = task_m[QUANT_FP32_GPU]["auc"]
-        cls = _TASK_TO_CLASS[task_id]
-        for quant_id in (QUANT_FP32_GPU, QUANT_INT8_STATIC):
-            m = task_m[quant_id]
-            rows.append({
-                "manipulation_class": cls,
-                "task_id": task_id,
-                "quant_id": quant_id,
-                "auc": m["auc"],
-                "accuracy": m["accuracy"],
-                "fps": m["fps"],
-                "model_size_mb": m["model_size_mb"],
-                "video_accuracy": m["video_accuracy"],
-                "num_frames": m["num_frames"],
-                "quant_gap": _gap(fp32_auc, m["auc"]) if quant_id != QUANT_FP32_GPU else 0.0,
-            })
-    return rows
+    return [
+        {**row, "manipulation_class": TASK_TO_FAKE_CLASS[row["task_id"]]}
+        for row in build_experiment_1(all_metrics)
+    ]
 
 
 def build_experiment_3(all_metrics: AllMetrics) -> List[dict]:
