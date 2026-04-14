@@ -13,7 +13,11 @@ def _make_torch_stub() -> types.ModuleType:
         def is_available(self) -> bool:
             return False
 
+    class _TensorStub:
+        pass
+
     torch.cuda = _CudaStub()  # type: ignore[attr-defined]
+    torch.Tensor = _TensorStub  # type: ignore[attr-defined]
     return torch
 
 
