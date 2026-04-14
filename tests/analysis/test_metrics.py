@@ -68,6 +68,12 @@ def test_frame_metrics_num_frames():
     assert result["num_frames"] == 6
 
 
+def test_frame_metrics_raises_on_single_class():
+    rows = [_make_frame_row("v1", i, "real", 0, 0.1, 0) for i in range(4)]
+    with pytest.raises(ValueError, match="both classes present"):
+        frame_metrics(rows)
+
+
 def test_fp32_video_accuracy_all_correct():
     rows = (
         [_make_frame_row("v1", i, "df", 1, 0.9, 1) for i in range(3)]

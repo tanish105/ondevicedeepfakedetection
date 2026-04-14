@@ -19,6 +19,12 @@ def frame_metrics(rows: List[FramePredictionRow]) -> dict:
     scores = [r.score_fake for r in rows]
     preds = [r.pred_label for r in rows]
 
+    if len(set(labels)) < 2:
+        raise ValueError(
+            f"frame_metrics requires both classes present in labels; "
+            f"got only {set(labels)} across {len(rows)} rows"
+        )
+
     auc = float(roc_auc_score(labels, scores))
     correct = sum(p == l for p, l in zip(preds, labels))
     accuracy = correct / len(rows)
@@ -30,6 +36,7 @@ def fp32_video_accuracy(frame_rows: List[FramePredictionRow]) -> Tuple[float, in
     """Compute video-level accuracy via majority vote from frame predictions.
 
     Used for the FP32 baseline which has no pre-built video CSVs.
+    Tie-breaking: equal counts of 0 and 1 resolve to 0 (predicted real).
 
     Returns:
         (accuracy, num_videos)
