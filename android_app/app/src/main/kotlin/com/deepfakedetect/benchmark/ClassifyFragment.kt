@@ -41,7 +41,7 @@ class ClassifyFragment : Fragment() {
 
     // ── Image picker ───────────────────────────────────────────────────────────
     private val pickImage = registerForActivityResult(
-        ActivityResultContracts.GetContent()
+        ActivityResultContracts.OpenDocument()
     ) { uri: Uri? ->
         if (uri != null) loadImage(uri)
     }
@@ -77,7 +77,7 @@ class ClassifyFragment : Fragment() {
         }
 
         btnPick.setOnClickListener {
-            pickImage.launch("image/*")
+            pickImage.launch(arrayOf("image/*"))
         }
 
         btnRun.setOnClickListener { runDetection() }
