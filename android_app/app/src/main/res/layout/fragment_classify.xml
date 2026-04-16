@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- ── Image panel ─────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#1e1e1e"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="IMAGE"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="#888888"
+                android:paddingBottom="8dp" />
+
+            <ImageView
+                android:id="@+id/ivPreview"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:scaleType="centerCrop"
+                android:background="#2a2a2a"
+                android:contentDescription="Selected image preview"
+                android:src="@android:drawable/ic_menu_gallery" />
+
+            <Button
+                android:id="@+id/btnPick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Pick Image" />
+
+        </LinearLayout>
+
+        <!-- ── Result panel ────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#1e1e1e"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RESULT"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="#888888"
+                android:paddingBottom="8dp" />
+
+            <!-- Empty state -->
+            <TextView
+                android:id="@+id/tvResultEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select an image and tap Run Detection"
+                android:textColor="#888888"
+                android:gravity="center"
+                android:padding="24dp" />
+
+            <!-- Loading state -->
+            <LinearLayout
+                android:id="@+id/layoutLoading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone"
+                android:padding="16dp">
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Analysing…"
+                    android:paddingTop="8dp"
+                    android:textColor="#CCCCCC" />
+
+            </LinearLayout>
+
+            <!-- Result state -->
+            <LinearLayout
+                android:id="@+id/layoutResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/tvVerdictIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="36sp"
+                    android:paddingBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/tvVerdict"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="#AAAAAA"
+                    android:paddingTop="4dp" />
+
+                <ProgressBar
+                    android:id="@+id/pbConfidence"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:max="100" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="2dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Real"
+                        android:textSize="10sp"
+                        android:textColor="#666666" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Fake"
+                        android:textSize="10sp"
+                        android:textColor="#666666"
+                        android:gravity="end" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvLatency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:textColor="#888888"
+                    android:paddingTop="6dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- ── Run Detection button ─────────────────────── -->
+        <Button
+            android:id="@+id/btnRun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Run Detection"
+            android:enabled="false" />
+
+    </LinearLayout>
+
+</ScrollView>
