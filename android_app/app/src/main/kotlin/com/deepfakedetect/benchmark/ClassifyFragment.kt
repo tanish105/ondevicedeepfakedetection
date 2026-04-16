@@ -175,7 +175,7 @@ class ClassifyFragment : Fragment() {
         )
         tvScore.text        = "score_fake: ${"%.2f".format(scoreFake)}"
         pbConfidence.progress = (scoreFake * 100).toInt()
-        tvLatency.text      = "inference: ${"%.1f".format(latencyMs)} ms"
+        tvLatency.text      = "inference only: ${"%.1f".format(latencyMs)} ms"
 
         tvResultEmpty.visibility = View.GONE
         layoutLoading.visibility = View.GONE
