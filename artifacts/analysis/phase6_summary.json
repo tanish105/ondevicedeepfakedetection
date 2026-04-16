@@ -13,10 +13,10 @@
     "mobilenetv2_df_vs_real__dynamic_range_tflite": {
       "task_id": "mobilenetv2_df_vs_real",
       "quant_id": "dynamic_range_tflite",
-      "auc": 0.9990596617151142,
-      "accuracy": 0.9882562806600268,
-      "num_frames": 6727,
-      "fps": 1.3904619834814815,
+      "auc": 0.9991112653061223,
+      "accuracy": 0.9887142857142858,
+      "num_frames": 7000,
+      "fps": 59.14909290714286,
       "model_size_mb": 2.38,
       "video_accuracy": 1.0
     },
@@ -26,7 +26,7 @@
       "auc": 0.9991054693877551,
       "accuracy": 0.9887142857142858,
       "num_frames": 7000,
-      "fps": 6.421809781928571,
+      "fps": 34.88366258571428,
       "model_size_mb": 4.26,
       "video_accuracy": 1.0
     },
@@ -36,7 +36,7 @@
       "auc": 0.99872,
       "accuracy": 0.988,
       "num_frames": 7000,
-      "fps": 12.975253333392857,
+      "fps": 66.26294266785715,
       "model_size_mb": 2.58,
       "video_accuracy": 1.0
     },
@@ -56,7 +56,7 @@
       "auc": 0.973110693877551,
       "accuracy": 0.9241428571428572,
       "num_frames": 7000,
-      "fps": 7.479154469000001,
+      "fps": 47.43103937678571,
       "model_size_mb": 2.39,
       "video_accuracy": 0.9642857142857143
     },
@@ -66,7 +66,7 @@
       "auc": 0.9732713469387755,
       "accuracy": 0.924,
       "num_frames": 7000,
-      "fps": 5.733670796785715,
+      "fps": 24.24801248392857,
       "model_size_mb": 4.26,
       "video_accuracy": 0.9642857142857143
     },
@@ -76,7 +76,7 @@
       "auc": 0.9709871020408163,
       "accuracy": 0.9131428571428571,
       "num_frames": 7000,
-      "fps": 12.220029143571429,
+      "fps": 37.85274529642857,
       "model_size_mb": 2.58,
       "video_accuracy": 0.95
     }
