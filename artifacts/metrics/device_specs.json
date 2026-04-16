@@ -1,10 +1,10 @@
 {
-  "device_name": "Google sdk_gphone64_arm64",
-  "manufacturer": "Google",
-  "model": "sdk_gphone64_arm64",
-  "hardware": "ranchu",
-  "android_version": "16",
-  "android_api_level": 36,
-  "total_ram_mb": 1974,
+  "device_name": "Nothing A063",
+  "manufacturer": "Nothing",
+  "model": "A063",
+  "hardware": "qcom",
+  "android_version": "14",
+  "android_api_level": 34,
+  "total_ram_mb": 7258,
   "tflite_version": "2.17.0"
 }

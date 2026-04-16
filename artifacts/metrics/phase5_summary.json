@@ -1,35 +1,35 @@
 {
   "mobilenetv2_df_vs_real": {
     "dynamic_range_tflite": {
-      "mean_latency_ms": 838.7040538614539,
-      "fps": 1.1923156867978972,
-      "num_frames": 6727
+      "mean_latency_ms": 16.91422531442857,
+      "fps": 59.121832741991234,
+      "num_frames": 7000
     },
     "float16_tflite": {
-      "mean_latency_ms": 168.86850781571428,
-      "fps": 5.921767255095883,
+      "mean_latency_ms": 28.94560097514286,
+      "fps": 34.54756392374626,
       "num_frames": 7000
     },
     "int8_static_tflite": {
-      "mean_latency_ms": 86.50909456028572,
-      "fps": 11.55947828471524,
+      "mean_latency_ms": 15.247192739285714,
+      "fps": 65.58584370901362,
       "num_frames": 7000
     }
   },
   "mobilenetv2_nt_vs_real": {
     "dynamic_range_tflite": {
-      "mean_latency_ms": 683.5548389042857,
-      "fps": 1.4629404154361114,
+      "mean_latency_ms": 23.473010879,
+      "fps": 42.60211888261188,
       "num_frames": 7000
     },
     "float16_tflite": {
-      "mean_latency_ms": 190.06750387971428,
-      "fps": 5.261288645284982,
+      "mean_latency_ms": 59.420868026,
+      "fps": 16.82910454223663,
       "num_frames": 7000
     },
     "int8_static_tflite": {
-      "mean_latency_ms": 88.72044604300001,
-      "fps": 11.271359022646612,
+      "mean_latency_ms": 32.588761267857144,
+      "fps": 30.68542531520881,
       "num_frames": 7000
     }
   }
