@@ -93,13 +93,21 @@ def test_mine_nt_failures_returns_failure_metadata_rows():
     assert failures[0].selection_reason == "fp32_correct_int8_wrong"
 
 
+def test_mine_nt_failures_excludes_fp32_also_wrong():
+    # fp32 wrong (pred_label=0) → frame should not appear in failures even if int8 is also wrong
+    fp32_rows = [_make_nt_frame_row("v1", 0, 1, 0.40, 0, "fp32_gpu")]
+    int8_rows = [_make_nt_frame_row("v1", 0, 1, 0.20, 0, "int8_static_tflite")]
+    failures = mine_nt_failures(fp32_rows, int8_rows)
+    assert failures == []
+
+
 def test_render_failure_grid_creates_png(tmp_path: Path):
     # Create a tiny 224×224 black PNG at the expected image path
-    from PIL import Image
+    Image = pytest.importorskip("PIL.Image")
     img_dir = tmp_path / "data" / "processed" / "frames" / "nt_vs_real" / "test" / "v1"
     img_dir.mkdir(parents=True)
     for i in range(6):
-        Image.new("RGB", (224, 224), (0, 0, 0)).save(img_dir / f"{i:04d}.png")
+        Image.new("RGB", (224, 224), (0, 0, 0)).save(img_dir / f"{i:04d}.png")  # type: ignore[attr-defined]
 
     failures = [
         FailureMetadataRow(

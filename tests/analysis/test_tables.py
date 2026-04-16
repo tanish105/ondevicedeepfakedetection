@@ -96,14 +96,29 @@ def test_experiment_3_only_tflite_variants():
 
 def test_experiment_3_has_per_task_columns():
     rows = build_experiment_3(_make_metrics())
-    required = {"quant_id", "df_auc", "nt_auc", "df_accuracy", "nt_accuracy",
+    required = {"quant_id", "overall_auc", "df_auc", "nt_auc", "df_accuracy", "nt_accuracy",
                 "df_fps", "nt_fps", "model_size_mb", "df_quant_gap", "nt_quant_gap"}
     for r in rows:
         assert required <= set(r.keys())
 
 
-def test_experiment_3_quant_gaps_are_positive():
+def test_experiment_3_overall_auc_is_mean_of_df_and_nt():
     rows = build_experiment_3(_make_metrics())
     for r in rows:
-        assert r["df_quant_gap"] >= 0.0
-        assert r["nt_quant_gap"] >= 0.0
+        assert r["overall_auc"] == pytest.approx((r["df_auc"] + r["nt_auc"]) / 2, abs=1e-6)
+
+
+def test_experiment_3_quant_gap_is_fp32_minus_quant():
+    # gap = fp32_auc - quant_auc; can be negative (e.g. float16 marginally beats fp32)
+    metrics = _make_metrics()
+    rows = build_experiment_3(metrics)
+    df_fp32_auc = metrics["mobilenetv2_df_vs_real"]["fp32_gpu"]["auc"]
+    nt_fp32_auc = metrics["mobilenetv2_nt_vs_real"]["fp32_gpu"]["auc"]
+    for r in rows:
+        q = r["quant_id"]
+        assert r["df_quant_gap"] == pytest.approx(
+            round(df_fp32_auc - metrics["mobilenetv2_df_vs_real"][q]["auc"], 6)
+        )
+        assert r["nt_quant_gap"] == pytest.approx(
+            round(nt_fp32_auc - metrics["mobilenetv2_nt_vs_real"][q]["auc"], 6)
+        )

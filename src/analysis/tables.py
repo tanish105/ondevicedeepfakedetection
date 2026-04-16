@@ -66,6 +66,8 @@ def build_experiment_3(all_metrics: AllMetrics) -> List[dict]:
     """All three TFLite quant methods — per-quant rows with both task columns.
 
     One row per quant variant; columns prefixed df_/nt_ for per-task values.
+    overall_auc is the mean of df_auc and nt_auc (the two classifiers share the
+    same architecture; averaging treats each task equally).
     """
     rows = []
     df_fp32_auc = all_metrics[TASK_DF_VS_REAL][QUANT_FP32_GPU]["auc"]
@@ -76,6 +78,7 @@ def build_experiment_3(all_metrics: AllMetrics) -> List[dict]:
         nt_m = all_metrics[TASK_NT_VS_REAL][quant_id]
         rows.append({
             "quant_id": quant_id,
+            "overall_auc": round((df_m["auc"] + nt_m["auc"]) / 2, 6),
             "df_auc": df_m["auc"],
             "nt_auc": nt_m["auc"],
             "df_accuracy": df_m["accuracy"],

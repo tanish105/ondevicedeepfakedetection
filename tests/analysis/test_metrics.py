@@ -84,6 +84,18 @@ def test_fp32_video_accuracy_all_correct():
     assert num_videos == 2
 
 
+def test_fp32_video_accuracy_tie_break_predicts_real():
+    # Equal votes (1 fake, 1 real pred) → tie-break resolves to real (0)
+    # binary_label=1 (fake), so predicting real is wrong → accuracy=0.0
+    rows = [
+        _make_frame_row("v1", 0, "df", 1, 0.9, 1),  # pred=1
+        _make_frame_row("v1", 1, "df", 1, 0.2, 0),  # pred=0 — tie
+    ]
+    accuracy, num_videos = fp32_video_accuracy(rows)
+    assert accuracy == pytest.approx(0.0)
+    assert num_videos == 1
+
+
 def test_fp32_video_accuracy_majority_vote():
     # video v1: pred=[1,1,0], label=1 → majority=1 → correct
     # video v2: pred=[0,0,1], label=1 → majority=0 → wrong
