@@ -46,7 +46,7 @@ class BenchmarkFragment : Fragment() {
         tvLog.text = ""
 
         val runner = BenchmarkRunner(requireContext()) { message ->
-            if (isAdded) requireActivity().runOnUiThread { appendLog(message) }
+            if (isAdded) requireActivity().runOnUiThread { if (isAdded) appendLog(message) }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {

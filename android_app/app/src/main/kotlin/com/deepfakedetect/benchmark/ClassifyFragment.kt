@@ -85,6 +85,8 @@ class ClassifyFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        selectedBitmap?.recycle()
+        selectedBitmap = null
         engine?.close()
         engine = null
     }
@@ -92,10 +94,11 @@ class ClassifyFragment : Fragment() {
     // ── Image loading ──────────────────────────────────────────────────────────
 
     private fun loadImage(uri: Uri) {
+        val contentResolver = requireContext().contentResolver
         viewLifecycleOwner.lifecycleScope.launch {
             val bitmap: Bitmap? = withContext(Dispatchers.IO) {
                 try {
-                    requireContext().contentResolver.openInputStream(uri)?.use { stream ->
+                    contentResolver.openInputStream(uri)?.use { stream ->
                         BitmapFactory.decodeStream(stream)
                     }
                 } catch (e: Exception) {
@@ -103,8 +106,14 @@ class ClassifyFragment : Fragment() {
                 }
             }
             if (bitmap != null) {
+                selectedBitmap?.recycle()
                 selectedBitmap = bitmap
                 ivPreview.setImageBitmap(bitmap)
+                // Reset result panel so previous result doesn't persist
+                tvResultEmpty.text = "Select an image and tap Run Detection"
+                tvResultEmpty.visibility = View.VISIBLE
+                layoutLoading.visibility = View.GONE
+                layoutResult.visibility  = View.GONE
                 if (engine != null) btnRun.isEnabled = true
             } else {
                 Toast.makeText(requireContext(), "Could not load image", Toast.LENGTH_SHORT).show()
@@ -166,7 +175,7 @@ class ClassifyFragment : Fragment() {
         )
         tvScore.text        = "score_fake: ${"%.2f".format(scoreFake)}"
         pbConfidence.progress = (scoreFake * 100).toInt()
-        tvLatency.text      = "${"%.1f".format(latencyMs)} ms"
+        tvLatency.text      = "inference: ${"%.1f".format(latencyMs)} ms"
 
         tvResultEmpty.visibility = View.GONE
         layoutLoading.visibility = View.GONE
@@ -178,7 +187,8 @@ class ClassifyFragment : Fragment() {
         tvResultEmpty.visibility = View.VISIBLE
         layoutLoading.visibility = View.GONE
         layoutResult.visibility  = View.GONE
-        btnRun.isEnabled   = false
+        btnRun.isEnabled  = false
+        btnPick.isEnabled = false
     }
 
     // ── Constants ──────────────────────────────────────────────────────────────
