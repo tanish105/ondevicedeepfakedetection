@@ -53,4 +53,29 @@ object ImagePreprocessor {
         }
         return floats
     }
+
+    /**
+     * Preprocesses an already-decoded Bitmap.
+     * Resizes to IMAGE_SIZE × IMAGE_SIZE and normalizes to NHWC float32.
+     * The input bitmap is NOT recycled — caller owns it.
+     */
+    fun preprocess(bitmap: Bitmap): FloatArray {
+        val resized = Bitmap.createScaledBitmap(bitmap, size, size, true)
+
+        val pixels = IntArray(size * size)
+        resized.getPixels(pixels, 0, size, 0, 0, size, size)
+        if (resized !== bitmap) resized.recycle()
+
+        val floats = FloatArray(size * size * 3)
+        var idx = 0
+        for (pixel in pixels) {
+            val r = ((pixel shr 16) and 0xFF) / 255f
+            val g = ((pixel shr 8)  and 0xFF) / 255f
+            val b = (pixel          and 0xFF) / 255f
+            floats[idx++] = (r - mean[0]) / std[0]
+            floats[idx++] = (g - mean[1]) / std[1]
+            floats[idx++] = (b - mean[2]) / std[2]
+        }
+        return floats
+    }
 }
